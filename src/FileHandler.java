@@ -5,26 +5,29 @@ import java.util.Scanner;
 
 
 public class FileHandler {
-    static int runningTotal = 9999999;
+    static int runningTotal = 9999999; //Placeholder
     static String highScore;
 
-    public static void CreateFile() {
+    public void CreateFile() {
         try{
-            File myFile = new File("src/highScores.txt");
-            if (myFile.createNewFile()) {
-                System.out.println("File created.");
-            } else {
-                System.out.println("File already exists.");
-            }
+            File myFile = new File("data/highScores.txt");
+            if (!myFile.exists()) {
+                myFile.getParentFile().mkdirs(); // Create directories if they don't exist
+                myFile.createNewFile(); 
+            }  
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
-    public static String ReadFile() {
+    public String ReadFile() {
         try{
-            File myFile = new File("src/highScores.txt");
+            File myFile = new File("data/highScores.txt");
             Scanner myReader = new Scanner(myFile);
+            if (!myReader.hasNextLine()){
+                myReader.close();
+                return "999999999,Default (no scores have been added yet)";
+            }
             while (myReader.hasNextLine()){
                 String line = myReader.nextLine();
                 String[] lineArray = line.split(",");
@@ -44,9 +47,9 @@ public class FileHandler {
         }
         return null;
     }
-    public static void WriteToFile(int score, String username) {
+    public void WriteToFile(int score, String username) {
         try {
-            FileWriter myWriter = new FileWriter("src/highScores.txt", true);
+            FileWriter myWriter = new FileWriter("data/highScores.txt", true);
             String scoreLine = String.format("%d,%s\n", score, username);
             myWriter.write(scoreLine);
             System.out.println("Score saved!");

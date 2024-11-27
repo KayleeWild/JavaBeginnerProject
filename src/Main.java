@@ -37,6 +37,7 @@ public class Main {
             System.out.println("Yay! You guessed the number " + guess + "!");
             String scoreMessage = String.format("Your score is %d! (You win if you get the lowest.)", counter);
             System.out.println(scoreMessage);
+            fh.CreateFile();
             String highScoreLine = fh.ReadFile();
             String[] highScoreArray = highScoreLine.split(",");
             int highScore = Integer.parseInt(highScoreArray[0]);
