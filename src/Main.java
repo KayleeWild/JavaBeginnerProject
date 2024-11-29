@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    static int UPPER = 6;
+    static int UPPER = 20;
     static int LOWER = 1;
     static Scanner myObj = new Scanner(System.in);
     static FileHandler fh = new FileHandler();
